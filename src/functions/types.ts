@@ -20,10 +20,16 @@ export enum ActionTypes {
 
 export interface IAction {
   type: ActionTypes;
-  payload: any;
+  payload: IEpisode[];
 }
 
 export interface IContext {
   state: IState;
   dispatch: React.Dispatch<IAction>;
 }
+
+export type ToggleFav = (
+  episode: IEpisode,
+  favourites: IEpisode[],
+  dispatch: React.Dispatch<IAction>
+) => void;

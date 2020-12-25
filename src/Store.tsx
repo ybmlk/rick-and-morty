@@ -1,5 +1,6 @@
-import React, { ReactNode, useReducer } from 'react';
-import { IState, IContext, IAction, ActionTypes } from './types';
+// ! This file handles global state via Context
+import React, { useReducer } from 'react';
+import { IState, IContext, IAction, ActionTypes } from './functions/types';
 
 const initialState: IState = {
   episodes: [],
@@ -19,11 +20,7 @@ function reducer(state: IState, action: IAction): IState {
   }
 }
 
-interface Props {
-  children: ReactNode;
-}
-
-export function StoreProvider({ children }: Props) {
+export function StoreProvider({ children }: JSX.ElementChildrenAttribute) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return <Store.Provider value={{ state, dispatch }}>{children}</Store.Provider>;

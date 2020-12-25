@@ -1,31 +1,31 @@
 import React, { useContext, Fragment } from 'react';
-import { IEpisode } from '../types';
 import { Store } from '../Store';
+import { toggleFavAction } from '../functions/actions';
+import { IEpisode } from '../functions/types';
 
-interface IProps {
-  toggleFavAction: (episode: IEpisode) => void;
-}
+type IProps = { display: IEpisode[] };
 
-export default function EpisodesList({ toggleFavAction }: IProps) {
+export default function EpisodesList({ display }: IProps) {
   const {
-    state: { episodes, favourites },
+    state: { favourites },
+    dispatch,
   } = useContext(Store);
 
   return (
     <Fragment>
-      {episodes.map((episode) => {
+      {display.map((episode) => {
         return (
           <div key={episode.id} className='episode-box'>
             <img src={episode.image.medium} alt={episode.name} />
             <div>{episode.name}</div>
             <div>
               <div>
-                Season: {episode.id} Number: {episode.number}{' '}
+                Season: {episode.season} Number: {episode.number}{' '}
               </div>
               <button
                 type='button'
-                onClick={() => toggleFavAction(episode)}
-                className={favourites.includes(episode) ? 'red' : ''}
+                onClick={() => toggleFavAction(episode, favourites, dispatch)}
+                className={favourites.includes(episode) ? 'fav' : ''}
               >
                 {favourites.includes(episode) ? 'UnFav' : 'Fav'}
               </button>

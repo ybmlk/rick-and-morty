@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { StoreProvider } from './Store';
 import reportWebVitals from './reportWebVitals';
+import HomePage from './components/HomePage';
+import FavPage from './components/FavPage';
+import { Router, RouteComponentProps } from '@reach/router';
+
+const RouterPage = (props: {pageComponent: JSX.Element} & RouteComponentProps) => props.pageComponent 
 
 ReactDOM.render(
   <StoreProvider>
     <React.StrictMode>
-      <App />
+      <Router>
+        <App path='/'>
+          <RouterPage pageComponent={<HomePage />} path='/' />
+          <RouterPage pageComponent={<FavPage />} path='/fav' />
+        </App>
+      </Router>
     </React.StrictMode>
   </StoreProvider>,
   document.getElementById('root')
