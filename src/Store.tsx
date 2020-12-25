@@ -1,22 +1,5 @@
 import React, { ReactNode, useReducer } from 'react';
-
-interface IState {
-  episodes: string[];
-  favourites: string[];
-}
-export enum ActionTypes {
-  'fetchData',
-}
-
-interface IAction {
-  type: ActionTypes;
-  payload: any;
-}
-
-interface IContext {
-  state: IState;
-  dispatch: React.Dispatch<IAction>;
-}
+import { IState, IContext, IAction, ActionTypes } from './types';
 
 const initialState: IState = {
   episodes: [],
@@ -29,7 +12,8 @@ function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case ActionTypes.fetchData:
       return { ...state, episodes: action.payload };
-
+    case ActionTypes.updateFavourite:
+      return { ...state, favourites: action.payload };
     default:
       return state;
   }
